@@ -4,8 +4,9 @@ import { createContext, useEffect, useState } from "react";
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-  // eslint-disable-next-line
-  const [token, setToken] = useState("");
+  const [isAuth, setIsAuth] = useState(false);
+    const [token, setToken] = useState("");
+
 
   const getToken = gql`
     mutation logIn($email: String!, $password: String!) {
@@ -14,7 +15,6 @@ function AuthProvider({ children }) {
       }
     }
   `;
-  // eslint-disable-next-line
   const [logInMutation, { data, loading, error }] = useMutation(getToken);
 
   async function logIn(email, password) {
@@ -27,16 +27,17 @@ function AuthProvider({ children }) {
   }
 
   useEffect(() => {
+    const expiresAt = new Date(new Date().getTime() + 24 * 60 * 60 * 1000); //gets current time and adds 24h to it
+    const item = {
+      token: data,
+      expiresAt,
+    };
+    !!data && localStorage.setItem("token", JSON.stringify(item));
     !!data && setToken(data);
-   
-  }, [data, setToken]);
-
-  useEffect(() => {
-    !!token && console.log(token);
-  }, [token]);
+  }, [data]);
 
   return (
-    <AuthContext.Provider value={{ logIn, token }}>
+    <AuthContext.Provider value={{ logIn, data, loading, token, isAuth }}>
       {children}
     </AuthContext.Provider>
   );

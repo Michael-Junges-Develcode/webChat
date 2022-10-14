@@ -13,10 +13,6 @@ export function Login() {
     logIn(email, password)
   }
 
-  useEffect(() => {
-    console.log(email);
-  }, [email]);
-
   return (
     <div className={styles.container}>
       <form className={styles.loginForm}>

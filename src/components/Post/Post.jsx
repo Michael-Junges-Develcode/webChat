@@ -3,6 +3,10 @@ import { Comment } from "../Comment/Comment";
 import styles from "./Post.module.css";
 
 export function Post() {
+  function handleClick(event) {
+    event.preventDefault();
+
+  }
   return (
     <article className={styles.post}>
       <header>
@@ -48,7 +52,9 @@ export function Post() {
         <strong>Deixe seu feedback</strong>
         <textarea placeholder="Deixe um comentário" />
         <footer>
-          <button type="submit">Comentar</button>
+          <button onClick={(event) => handleClick(event)} type="submit">
+            Comentar
+          </button>
         </footer>
       </form>
       <div className={styles.commentList}>
