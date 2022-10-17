@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate, useNavigate } from "react-router-dom";
 import App from "../App";
 import { AuthContext } from "../context/Authentication";
 import ErrorPage from "../screens/error/ErrorPage";
@@ -10,10 +10,14 @@ export function useRouter() {
   const { isAuth } = useContext(AuthContext);
 
   return createBrowserRouter([
-    { path: "/login", element: <Login />, errorElement: <ErrorPage /> },
+    {
+      path: "/",
+      element: isAuth ? <Navigate to="/dashboard" /> : <Login />,
+      errorElement: <ErrorPage />,
+    },
     {
       path: "/dashboard",
-      element: isAuth ? <Navigate to="/login" /> : <App />,
+      element: !isAuth ? <Navigate to="/" /> : <App />,
       errorElement: <ErrorPage />,
     },
   ]);

@@ -1,4 +1,4 @@
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, CircularProgress } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/Authentication";
 import styles from "./Login.module.css";
@@ -7,10 +7,10 @@ export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { logIn } = useContext(AuthContext);
+  const { logIn, loading } = useContext(AuthContext);
 
   function handleLogin() {
-    logIn(email, password)
+    logIn(email, password);
   }
 
   return (
@@ -36,9 +36,9 @@ export function Login() {
           onClick={() => handleLogin()}
           variant="outlined"
           sx={{ height: "3rem" }}
-          
+          disabled={loading}
         >
-          Outlined
+          {loading ? <CircularProgress /> : "Entrar"}
         </Button>
       </form>
     </div>
