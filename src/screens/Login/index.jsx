@@ -1,5 +1,5 @@
 import { TextField, Button, CircularProgress } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/Authentication";
 import styles from "./Login.module.css";
 

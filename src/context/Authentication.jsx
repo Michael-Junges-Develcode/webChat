@@ -14,7 +14,7 @@ function AuthProvider({ children }) {
       }
     }
   `;
-  const [logInMutation, { data, loading, error }] = useMutation(getToken);
+  const [logInMutation, { data, loading }] = useMutation(getToken);
 
   async function logIn(email, password) {
     logInMutation({
