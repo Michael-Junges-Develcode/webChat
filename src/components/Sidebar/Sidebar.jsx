@@ -1,6 +1,7 @@
 import styles from "./Sidebar.module.css";
 import { PencilLine } from "phosphor-react";
 import { Avatar } from "../Avatar/Avatar";
+import { Link } from "react-router-dom";
 
 export function Sidebar() {
   return (
@@ -17,10 +18,10 @@ export function Sidebar() {
       </div>
 
       <footer>
-        <a href="https://github.com/Michael-Junges-Develcode">
+        <Link to="/profile">
           <PencilLine size={20} />
           Editar seu perfil
-        </a>
+        </Link>
       </footer>
     </aside>
   );
