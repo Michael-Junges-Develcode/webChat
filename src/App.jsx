@@ -14,6 +14,14 @@ function App() {
         }
         id
         content
+        comments {
+          comment
+          id
+          author {
+            name
+          }
+          createdAt
+        }
         createdAt
       }
     }
@@ -26,6 +34,7 @@ function App() {
         }
         id
         content
+        comments
         createdAt
       }
     }
@@ -41,6 +50,7 @@ function App() {
       content={post.content}
       authorName={post.author.name}
       createdAt={post.createdAt}
+      comments={post.comments}
       key={post.id}
     />
   ));

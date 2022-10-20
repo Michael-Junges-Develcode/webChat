@@ -33,6 +33,8 @@ function AuthProvider({ children }) {
     };
     !!data && localStorage.setItem("token", JSON.stringify(item));
     !!data && setToken(data?.logIn?.token);
+        console.log("my name jeb");
+
   }, [data]);
 
   useEffect(() => {

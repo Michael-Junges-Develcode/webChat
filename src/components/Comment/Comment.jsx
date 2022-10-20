@@ -1,8 +1,14 @@
+import moment from "moment";
 import { ThumbsUp, Trash } from "phosphor-react";
 import { Avatar } from "../Avatar/Avatar";
 import styles from "./Comment.module.css";
 
-export function Comment() {
+export function Comment({content, author, createdAt, id}) {
+
+  const relativeTime = moment(createdAt).fromNow();
+  const formattedDate = moment(createdAt).format("LLL");
+
+
   return (
     <div className={styles.comment}>
       <Avatar
@@ -13,19 +19,19 @@ export function Comment() {
         <div className={styles.commentContent}>
           <header>
             <div className={styles.authorAndTime}>
-              <strong>Mixagol</strong>
+              <strong>{author}</strong>
               <time
-                title="11 de Outubro as 14:35"
-                dateTime="2022/10/11 14:35:40"
+                title={formattedDate}
+                dateTime={createdAt}
               >
-                Há 2 horas
+                {relativeTime}
               </time>
             </div>
-            <button title="Deletar comentário">
+            <button onClick={() => console.log(`comentário ${id} deletado`)} title="Deletar comentário">
               <Trash size={20} />
             </button>
           </header>
-          <p>Muito bommmmmmmm!!</p>
+          <p>{content}</p>
         </div>
 
         <footer>

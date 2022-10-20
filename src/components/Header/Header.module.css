@@ -1,18 +1,26 @@
 .header {
   background: #333;
   display: flex;
-  padding: 1.25rem 0;
+  height: 5rem;
+  padding: 1.25rem 1rem;
+  align-items: center;
+}
+
+.emptyBox {
+  flex: 1;
 }
 
 .logoWrapper {
   display: flex;
+  flex: 1;
+  justify-content: center;
   align-items: center;
   gap: 0.6rem;
-  background: white;
 }
 
 .title {
   font-size: larger;
+  font-weight: bold;
 }
 
 .header img {
@@ -20,9 +28,26 @@
 }
 
 .buttonWrapper {
+  display: flex;
   flex: 1;
-  background: blue;
-  justify-content: flex-end;
+  flex-direction: column;
 }
+
 .logOut {
+  align-self: flex-end;
+  background: transparent;
+  color: var(--green-500);
+  border: 1px solid var(--green-500);
+  border-radius: 8px;
+  text-decoration: none;
+  width: 4rem;
+  height: 2rem;
+  font-weight: bold;
+  transition: color 0.2s, background-color 0.1s;
+  padding: 0 0.5rem;
+}
+
+.logOut:hover {
+  background: var(--red-500);
+  color: var(--white);
 }

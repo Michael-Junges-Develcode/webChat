@@ -1,3 +1,4 @@
+import { gql, useMutation, useQuery } from "@apollo/client";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { Avatar } from "../Avatar/Avatar";
@@ -11,6 +12,9 @@ export function Post({ content, authorName, comments, createdAt }) {
   moment.locale("pt-br");
   const relativeTime = moment(createdAt).fromNow();
   const formattedDate = moment(createdAt).format("LLL");
+
+  const formattedComments = comments?.map(comment => <Comment author={comment.author.name} content={comment.comment} createdAt={comment.createdAt} id={comment.id} key={comment.id}/>)
+  console.log(comments)
   return (
     <article className={styles.post}>
       <header>
@@ -41,11 +45,7 @@ export function Post({ content, authorName, comments, createdAt }) {
           </button>
         </footer>
       </form>
-      <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
-      </div>
+      <div className={styles.commentList}>{formattedComments}</div>
     </article>
   );
 }

@@ -8,11 +8,9 @@ import { AuthRoutes } from "./routes/auth.routes";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
-      <AuthProvider>
-        <AuthRoutes />
-      </AuthProvider>
-    </ApolloProvider>
-  </React.StrictMode>
+  <ApolloProvider client={client}>
+    <AuthProvider>
+      <AuthRoutes />
+    </AuthProvider>
+  </ApolloProvider>
 );
