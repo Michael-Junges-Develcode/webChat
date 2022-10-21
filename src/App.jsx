@@ -1,11 +1,27 @@
-import { gql, useQuery } from "@apollo/client";
-import { useEffect } from "react";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { useEffect, useReducer } from "react";
 import styles from "./App.module.css";
 import { Header } from "./components/Header/Header";
 import { Post } from "./components/Post/Post";
 import { Sidebar } from "./components/Sidebar/Sidebar";
 
 function App() {
+  const initialState = { comments: [] };
+
+  //const deleteComment = gql`
+  // mutation deleteComment($commentId: Float!) {
+  //   deleteComment(commentId: $commentId) {
+  //
+  //    }
+  //  }
+  //`;
+  //const [deleteCommentMutation, { data: deleteCommentData }] =
+  //useMutation(deleteComment);
+
+  function handleDeleteComment(commentId) {
+    //deleteCommentMutation({ variables: { commentId } });
+  }
+
   const getFirstPosts = gql`
     query getFirstPostsPage {
       getFirstPostsPage {
@@ -26,6 +42,7 @@ function App() {
       }
     }
   `;
+
   const getAllPosts = gql`
     query getAllPosts($cursor: Float!) {
       getAllPosts(cursor: $cursor) {
@@ -39,18 +56,50 @@ function App() {
       }
     }
   `;
+
   const { loading, error, data } = useQuery(getFirstPosts);
 
-  useEffect(() => {
-    error && console.log(error)
-  }, [error]);
+  function log(commentId) {
+    console.log("id do comentario: ", commentId);
+  }
 
-  const posts = data?.getFirstPostsPage.map((post) => (
+  const add = () => {
+    const commentsArray = data?.getFirstPostsPage.map((post) => post.comments);
+    return commentsArray;
+  };
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case "add":
+        return [
+          ...state.comments,
+          add().map((comment) => {
+            return comment;
+          }),
+        ];
+      case "delete":
+        return [...state.comments, log(action.payload.commentId)];
+      default:
+        throw new Error();
+    }
+  }
+
+  const [state, dispatch] = useReducer(reducer, {comments: []});
+
+  useEffect(() => {
+    data && dispatch({ type: "add" });
+  }, [data]);
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
+
+  const posts = data?.getFirstPostsPage.map((post, index) => (
     <Post
       content={post.content}
       authorName={post.author.name}
       createdAt={post.createdAt}
-      comments={post.comments}
+      comments={state[index]}
       key={post.id}
     />
   ));

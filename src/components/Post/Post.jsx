@@ -13,8 +13,10 @@ export function Post({ content, authorName, comments, createdAt }) {
   const relativeTime = moment(createdAt).fromNow();
   const formattedDate = moment(createdAt).format("LLL");
 
-  const formattedComments = comments?.map(comment => <Comment author={comment.author.name} content={comment.comment} createdAt={comment.createdAt} id={comment.id} key={comment.id}/>)
-  console.log(comments)
+  //console.log(comments);
+
+  //const formattedComments = comments?.map(comment => <Comment author={comment.author.name} content={comment.comment} createdAt={comment.createdAt} id={comment.id} key={comment.id}/>)
+
   return (
     <article className={styles.post}>
       <header>
@@ -45,7 +47,7 @@ export function Post({ content, authorName, comments, createdAt }) {
           </button>
         </footer>
       </form>
-      <div className={styles.commentList}>{formattedComments}</div>
+      <div className={styles.commentList}>{}</div>
     </article>
   );
 }
